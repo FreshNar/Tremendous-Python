@@ -1,6 +1,6 @@
 import requests
 
-class Tremendous:
+class TremendousClient:
     """
     Main client for interacting with the Tremendous API.
     
