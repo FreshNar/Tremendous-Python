@@ -47,9 +47,33 @@ class Tremendous:
 
         from tremendous.products import Products
         from tremendous.rewards import Rewards
+        from tremendous.orders import Orders
+        from tremendous.campaigns import Campaigns
+        from tremendous.funding_sources import FundingSources
+        from tremendous.invoices import Invoices
+        from tremendous.topups import Topups
+        from tremendous.balance_transactions import BalanceTransactions
+        from tremendous.organizations import Organizations
+        from tremendous.members import Members
+        from tremendous.roles import Roles
+        from tremendous.fields import Fields
+        from tremendous.webhooks import Webhooks
+        from tremendous.forex import Forex
+
         self.products = Products(self)
         self.rewards = Rewards(self)
-
+        self.orders = Orders(self)
+        self.campaigns = Campaigns(self)
+        self.funding_sources = FundingSources(self)
+        self.invoices = Invoices(self)
+        self.topups = Topups(self)
+        self.balance_transactions = BalanceTransactions(self)
+        self.organizations = Organizations(self)
+        self.members = Members(self)
+        self.roles = Roles(self)
+        self.fields = Fields(self)
+        self.webhooks = Webhooks(self)
+        self.forex = Forex(self)
     def _request(self, method: str, url: str, **kwargs) -> requests.Response:
         """
         Make a request to the Tremendous API.
@@ -62,23 +86,19 @@ class Tremendous:
             url (str): The endpoint URL (relative to base_url).
             **kwargs: Additional arguments passed to requests.Session.request().
         
-        Returns:
-            requests.Response: The HTTP response object.
-            
-        Raises:
-            requests.HTTPError: If the request fails with a non-2xx status code.
         """
         url = f"{self.base_url}{url}"
         response = self.session.request(method, url, **kwargs)
         if not response.ok:
-            raise requests.HTTPError(f"Request failed with status code {response.status_code}")
+            print(response.json())
+            raise requests.HTTPError(response.json())
         return response
 
     def _fetch(
         self,
         path: str,
         model_cls,
-        list_key: str,
+        list_key: str = None,
         params: dict | None = None,
         method: str = "GET",
     ):
@@ -99,7 +119,7 @@ class Tremendous:
         self,
         path: str,
         model_cls,
-        list_key: str,
+        list_key: str | None = None,
         params: dict | None = None,
         method: str = "GET",
     ):
@@ -115,5 +135,66 @@ class Tremendous:
         """
         response = self._request(method, path, params=params)
         data = response.json()
-        print(data)
+        if list_key is None:
+            return model_cls(**data)
         return [model_cls(**item) for item in data[list_key]]
+
+    def _create(
+        self,
+        path: str,
+        model_cls = None,
+        params: dict | None = None,
+        method: str = "POST",
+        list_key: str | None = None,
+    ):
+        """
+        Create a resource in the API.
+
+        Uses a JSON request body and can optionally extract a nested key
+        from the response before initializing the model.
+        """
+        response = self._request(method, path, json=params)
+        data = response.json()
+        if model_cls:
+            if list_key:
+                return model_cls(**data[list_key])
+            return model_cls(**data)
+        return data
+    
+    def _update(
+        self,
+        path: str,
+        model_cls = None,
+        params: dict | None = None,
+        method: str = "PUT",
+        list_key: str | None = None,
+    ):
+        """
+        Update a resource in the API.
+        """
+        response = self._request(method, path, json=params)
+        data = response.json()
+        if model_cls:
+            if list_key:
+                return model_cls(**data[list_key])
+            return model_cls(**data)
+        return data
+
+    def _delete(
+        self,
+        path: str,
+        model_cls = None,
+        params: dict | None = None,
+        method: str = "DELETE",
+        list_key: str | None = None,
+    ):
+        """
+        Delete a resource in the API.
+        """
+        response = self._request(method, path, json=params)
+        data = response.json()
+        if model_cls:
+            if list_key:
+                return model_cls(**data[list_key])
+            return model_cls(**data)
+        return data

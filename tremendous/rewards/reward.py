@@ -1,9 +1,14 @@
+import json
 from pydantic import BaseModel
-from typing import List, Dict, TYPE_CHECKING, Optional
+from typing import List, TYPE_CHECKING
 from tremendous.products.product import ProductModel
 
 if TYPE_CHECKING:
     from tremendous.client import Tremendous
+
+class RewardURLModel(BaseModel):
+    id: str
+    url: str
 
 class ValueModel(BaseModel):
     denomination: float
@@ -76,5 +81,54 @@ class Rewards:
             params={
             "offset": offset,
             "limit": limit
+            }
+        )
+
+    def generate_reward_url(self, id: str) -> str:
+        """
+        Generate a redemption link for the reward identified by the id in the URL.
+
+        Args:
+            id (str): The ID of the reward.
+        """
+
+        return self.client._create(
+            path=f"/rewards/{id}/generate_link",
+            params={
+                "id": id
+            }
+        )
+
+    def resend_reward(self, id: str, updated_email: str = None, updated_phone: str = None):
+        """
+        Resends a reward, identified by the given id in the URL, to its recipient. Only rewards with a previous delivery failure can be resent.
+
+        Args:
+            id (str): The ID of the reward.
+            updated_email (str, optional): The email address to send the reward to.
+            updated_phone (str, optional): The phone number to send the reward to.
+        """
+
+        return self.client._create(
+            path=f"/rewards/{id}/resend",
+            params={
+                "id": id,
+                "updated_email": updated_email,
+                "updated_phone": updated_phone
+            }
+        )
+
+    def cancel_reward(self, id: str):
+        """
+        Cancels a reward, identified by the given id in the URL.
+
+        Args:
+            id (str): The ID of the reward.
+        """
+
+        return self.client._create(
+            path=f"/rewards/{id}/cancel",
+            params={
+                "id": id
             }
         )

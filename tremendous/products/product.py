@@ -1,25 +1,25 @@
 from pydantic import BaseModel
-from typing import List, Dict, TYPE_CHECKING
+from typing import List, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from tremendous.client import Tremendous
 
 class SkuModel(BaseModel):
-    min: int
-    max: int
+    min: float = None
+    max: float = None
 
 class CountryModel(BaseModel):
     abbr: str
 
 class ImageModel(BaseModel):
-    src: str
-    type: str
-    content_type: str
+    src: str = None
+    type: str = None
+    content_type: str = None
 
 class DocumentModel(BaseModel):
-    cardholder_agreement_pdf: str
-    cardholder_agreement_html: str
-    privacy_policy_url: str
+    cardholder_agreement_pdf: str = None
+    cardholder_agreement_html: str = None
+    privacy_policy_url: str = None
 
 class ProductModel(BaseModel):
     """
@@ -53,7 +53,7 @@ class ProductModel(BaseModel):
     countries: List[CountryModel]
     images: List[ImageModel]
     usage_instructions: str = ""
-    documents: Dict[str, DocumentModel] = {}
+    documents: DocumentModel = None
 
 class Products:
     """
