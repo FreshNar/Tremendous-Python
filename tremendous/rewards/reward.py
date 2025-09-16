@@ -57,9 +57,9 @@ class Rewards:
     def __init__(self, client: "Tremendous"):
         self.client = client
 
-    def get(self, reward_id: str) -> RewardModel:
+    def get(self, id: str) -> RewardModel:
         return self.client._fetch(
-            path=f"/rewards/{reward_id}",
+            path=f"/rewards/{id}",
             model_cls=RewardModel,
             list_key="reward"
         )
