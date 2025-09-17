@@ -27,7 +27,7 @@ class RewardModel(BaseModel):
     """
     Represents a tremendous reward.
 
-    A reward is a monetary incentive sent to an individual recipient. They're probably what brought you to Tremendous.
+    A reward is a monetary incentive sent to an individual recipient.
 
     Attributes:
         id (str): Tremendous ID of the reward.
@@ -69,7 +69,7 @@ class Rewards:
         Retrieve a list of rewards.
 
         Args:
-            offset (int, optional): Offsets the returned list by the given number of rewards. The returned rewards are ordered (and offsetted) by their creation date (DESC).
+            offset (int, optional): Offsets and orders by their creation date.
             limit (int, optional): Limits the number of rewards returned.
 
         """
