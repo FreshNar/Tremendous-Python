@@ -1,0 +1,10 @@
+.doc .doc-contents {
+    overflow-x: auto;
+}
+.doc .doc-object .doc-class{
+    object-fit: contain;
+}
+
+.quote {
+    display: none;
+}
