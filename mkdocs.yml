@@ -1,0 +1,44 @@
+site_name: tremendous-client
+site_description: A Python client library for the Tremendous API
+repo_url: https://github.com/FreshNar/Tremendous-Python
+theme:
+  name: shadcn
+  icon: heroicons:credit-card
+  features:
+    - content.code.annotate
+    - navigation.sections
+    - navigation.tracking
+
+extra_css:
+  - overrides/main.css
+
+nav:
+  - Introduction: index.md
+  - Getting Started: quick_start.md
+  - API Reference: reference.md
+  - Objects: objects.md
+  - License: license.md
+  - Changelog: changelog.md
+  - Resources:
+    - Data Formats: data_formats.md
+    - Response Codes: response_codes.md
+ 
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: false
+            show_signature: true
+          selection:
+            members:
+              - '!^__init__$' # Exclude __init__ methods
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.snippets
+  - pymdownx.highlight
+  - toc:
+      permalink: true

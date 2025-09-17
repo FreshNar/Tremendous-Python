@@ -63,19 +63,11 @@ class Products:
     methods to retrieve available products and get detailed information about
     specific products.
     
-    Reference: https://docs.tremendous.com/reference/get_products
+    [Tremendous Products API Reference](https://docs.tremendous.com/reference/get_products)
     
-    Args:
-        client (Tremendous): The main Tremendous client instance.
     """
 
     def __init__(self, client: "Tremendous"):
-        """
-        Initialize the Products client.
-        
-        Args:
-            client (Tremendous): The main Tremendous client instance.
-        """
         self.client = client
 
     def list(self, country: str = "US", currency: str = "USD", subcategory: str = "") -> List[ProductModel]:
@@ -93,10 +85,13 @@ class Products:
         Returns:
             List[ProductModel]: List of available products matching the criteria.
         
-        Example:
-            >>> products = client.products.list(country="US", currency="USD")
-            >>> for product in products:
-            ...     print(f"{product.name}: {product.description}")
+        ```python
+        from tremendous import TremendousClient
+        client = TremendousClient(api_key="your-api-key", sandbox=True)
+        products = client.products.list(country="US", currency="USD")
+        for product in products:
+            print(f"{product.name}: {product.description}")
+        ```
         """
         return self.client._fetch_list(
             path="/products",
@@ -109,26 +104,26 @@ class Products:
             }
         )
 
-    def get(self, product_id: str) -> ProductModel:
+    def get(self, id: str) -> ProductModel:
         """
         Retrieve detailed information about a specific product.
         
         Args:
-            product_id (str): The unique identifier of the product.
+            id (str): The unique identifier of the product.
         
         Returns:
             ProductModel: Detailed product information.
         
-        Raises:
-            requests.HTTPError: If the product is not found or request fails.
-        
-        Example:
-            >>> product = client.products.get("product-123")
-            >>> print(f"Product: {product.name}")
-            >>> print(f"Available currencies: {product.currency_codes}")
+        ```python
+        from tremendous import TremendousClient
+        client = TremendousClient(api_key="your-api-key", sandbox=True)
+        product = client.products.get("product-123")
+        print(f"Product: {product.name}")
+        print(f"Available currencies: {product.currency_codes}")
+        ```
         """
         return self.client._fetch(
-            path=f"/products/{product_id}",
+            path=f"/products/{id}",
             model_cls=ProductModel,
             list_key='product'
         )

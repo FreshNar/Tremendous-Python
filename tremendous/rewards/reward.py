@@ -27,7 +27,7 @@ class RewardModel(BaseModel):
     """
     Represents a tremendous reward.
 
-    A reward is a monetary incentive sent to an individual recipient. They're probably what brought you to Tremendous.
+    A reward is a monetary incentive sent to an individual recipient.
 
     Attributes:
         id (str): Tremendous ID of the reward.
@@ -50,14 +50,30 @@ class RewardModel(BaseModel):
 class Rewards:
 
     """
-    Client for interacting with Tremendous rewards. 
+    A reward is a monetary incentive sent to an individual recipient.
+    Rewards have an amount, a delivery method, and a set of redemption choices available to the recipient.
 
+    [Tremendous Rewards API Reference](https://developers.tremendous.com/reference/rewards)
     """
 
     def __init__(self, client: "Tremendous"):
         self.client = client
 
     def get(self, id: str) -> RewardModel:
+        """
+        Retrieve a reward by its ID.
+        
+        Args:
+            id (str): The ID of the reward.
+
+        Returns:
+            RewardModel: The reward.
+
+        ```python
+        tremendous.Rewards.get("1234567890")
+        ```
+        """
+
         return self.client._fetch(
             path=f"/rewards/{id}",
             model_cls=RewardModel,
@@ -69,9 +85,15 @@ class Rewards:
         Retrieve a list of rewards.
 
         Args:
-            offset (int, optional): Offsets the returned list by the given number of rewards. The returned rewards are ordered (and offsetted) by their creation date (DESC).
+            offset (int, optional): Offsets and orders by their creation date.
             limit (int, optional): Limits the number of rewards returned.
 
+        Returns:
+            RewardModel: The list of rewards.
+
+        ```python
+        tremendous.Rewards.list()
+        ```
         """
 
         return self.client._fetch_list(
@@ -86,10 +108,17 @@ class Rewards:
 
     def generate_reward_url(self, id: str) -> str:
         """
-        Generate a redemption link for the reward identified by the id in the URL.
+        Generate a redemption link for the reward identified by the id.
 
         Args:
             id (str): The ID of the reward.
+
+        Returns:
+            URL: The redemption link.
+
+        ```python
+        tremendous.Rewards.generate_reward_url("1234567890")
+        ```
         """
 
         return self.client._create(
@@ -99,14 +128,21 @@ class Rewards:
             }
         )
 
-    def resend_reward(self, id: str, updated_email: str = None, updated_phone: str = None):
+    def resend_reward(self, id: str, updated_email: str = None, updated_phone: str = None) -> RewardModel:
         """
-        Resends a reward, identified by the given id in the URL, to its recipient. Only rewards with a previous delivery failure can be resent.
+        Resends a reward, identified by the given id, to its recipient. Only rewards with a previous delivery failure can be resent.
 
         Args:
             id (str): The ID of the reward.
             updated_email (str, optional): The email address to send the reward to.
             updated_phone (str, optional): The phone number to send the reward to.
+
+        Returns:
+            RewardModel: The reward.
+
+        ```python
+        tremendous.Rewards.resend_reward("1234567890", updated_email="test@test.com", updated_phone="1234567890")
+        ```
         """
 
         return self.client._create(
@@ -118,12 +154,19 @@ class Rewards:
             }
         )
 
-    def cancel_reward(self, id: str):
+    def cancel_reward(self, id: str) -> RewardModel:
         """
-        Cancels a reward, identified by the given id in the URL.
+        Cancels a reward, identified by the given id.
 
         Args:
             id (str): The ID of the reward.
+
+        Returns:
+            RewardModel: The reward.
+
+        ```python
+        tremendous.Rewards.cancel_reward("1234567890")
+        ```
         """
 
         return self.client._create(

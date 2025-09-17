@@ -60,20 +60,20 @@ class TremendousClient:
         from tremendous.webhooks import Webhooks
         from tremendous.forex import Forex
 
-        self.products = Products(self)
-        self.rewards = Rewards(self)
-        self.orders = Orders(self)
-        self.campaigns = Campaigns(self)
-        self.funding_sources = FundingSources(self)
-        self.invoices = Invoices(self)
-        self.topups = Topups(self)
-        self.balance_transactions = BalanceTransactions(self)
-        self.organizations = Organizations(self)
-        self.members = Members(self)
-        self.roles = Roles(self)
-        self.fields = Fields(self)
-        self.webhooks = Webhooks(self)
-        self.forex = Forex(self)
+        self.Products = Products(self)
+        self.Rewards = Rewards(self)
+        self.Orders = Orders(self)
+        self.Campaigns = Campaigns(self)
+        self.FundingSources = FundingSources(self)
+        self.Invoices = Invoices(self)
+        self.Topups = Topups(self)
+        self.BalanceTransactions = BalanceTransactions(self)
+        self.Organizations = Organizations(self)
+        self.Members = Members(self)
+        self.Roles = Roles(self)
+        self.Fields = Fields(self)
+        self.Webhooks = Webhooks(self)
+        self.Forex = Forex(self)
     def _request(self, method: str, url: str, **kwargs) -> requests.Response:
         """
         Make a request to the Tremendous API.

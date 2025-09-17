@@ -27,11 +27,26 @@ class OrderModel(BaseModel):
     rewards: Optional[List[RewardModel]] = None
 
 class Orders:
+    """
+    The order object wraps the fulfillment of one or more rewards. If you want to send rewards via the API, you'll do it by creating an order.
+
+    [Tremendous Orders API Reference](https://developers.tremendous.com/reference/orders)
+    """
 
     def __init__(self, client: "Tremendous"):
         self.client = client
 
     def get(self, order_id: str) -> OrderModel:
+        """
+        Retrieve an order by its ID.
+        
+        Args:
+            order_id (str): The ID of the order.
+
+        Returns:
+            OrderModel: The order.
+        """
+
         return self.client._fetch(
             path=f"/orders/{order_id}",
             model_cls=OrderModel,
@@ -46,7 +61,7 @@ class Orders:
             created_at_gte: str = None, 
             created_at_lte: str = None, 
             limit: int = 10) -> List[OrderModel]:
-        
+                
         """
         Retrieve a list of orders.
 
@@ -82,7 +97,7 @@ class Orders:
             products: Optional[List[Dict]] = None, 
             external_id: Optional[str] = None, 
             deliver_at: str = None, 
-            custom_fields: Dict[str, str] = None, 
+            custom_fields: List[Dict[str, str]] = None, 
             language: str = "en", 
             delivery_method: Dict = None, 
             meta_data: Dict[str, str] = None
@@ -116,7 +131,7 @@ class Orders:
                     "recipient": recipient,
                     "value": value,
                     "deliver_at": deliver_at,
-                    "custom_fields": custom_fields,
+                    "custom_fields": [custom_fields],
                     "language": language,
                     "delivery": delivery_method,
                     "meta_data": meta_data
