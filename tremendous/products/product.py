@@ -104,12 +104,12 @@ class Products:
             }
         )
 
-    def get(self, product_id: str) -> ProductModel:
+    def get(self, id: str) -> ProductModel:
         """
         Retrieve detailed information about a specific product.
         
         Args:
-            product_id (str): The unique identifier of the product.
+            id (str): The unique identifier of the product.
         
         Returns:
             ProductModel: Detailed product information.
@@ -123,7 +123,7 @@ class Products:
         ```
         """
         return self.client._fetch(
-            path=f"/products/{product_id}",
+            path=f"/products/{id}",
             model_cls=ProductModel,
             list_key='product'
         )

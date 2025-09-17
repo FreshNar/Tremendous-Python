@@ -1,103 +1,82 @@
-## Initialization
-Before we can make any requests, we need to initialize the client. Every request follows the same schema. 
-
-``` python
-from tremendous import TremendousClient
-
-tremendous = TremendousClient(api_key="<your-api-key>", sandbox=True)
-
-tremendous.<resource>.<method(paramters)>
-```
-
-#### Working Example
-``` python
-from tremendous import TremendousClient
-
-tremendous = TremendousClient(api_key="<your-api-key>", sandbox=True)
-
-tremendous.Rewards.list(offset=0, limit=10)
-```
-For production enviornments, set Sandbox to False and replace your API Key with the production API Key.
-
-::: tremendous.Rewards
+::: tremendous.RewardModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.Orders
+::: tremendous.OrderModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.Products
+::: tremendous.ProductModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.Campaigns
+::: tremendous.CampaignModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.FundingSources
+::: tremendous.FundingSourceModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.Invoices
+::: tremendous.InvoiceModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.Topups
+::: tremendous.TopupModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.BalanceTransactions
+::: tremendous.BalanceTransactionModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.Organizations
+::: tremendous.OrganizationModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.Members
+::: tremendous.MemberModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.Roles
+::: tremendous.RoleModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.Fields
+::: tremendous.FieldModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.Webhooks
+::: tremendous.WebhookModel
     handler: python
     rendering:
         show_root_heading: true
         show_source: false
 
-::: tremendous.Forex
+::: tremendous.ForexModel
     handler: python
     rendering:
         show_root_heading: true
