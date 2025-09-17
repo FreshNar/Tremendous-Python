@@ -1,6 +1,8 @@
 site_name: tremendous-client
 site_description: A Python client library for the Tremendous API
-repo_url: https://github.com/FreshNar/Tremendous-Python
+site_url: https://freshnar.github.io/Tremendous-Python/
+repo_url: https://github.com/freshnar/Tremendous-Python
+use_directory_urls: true
 theme:
   name: shadcn
   icon: heroicons:credit-card
